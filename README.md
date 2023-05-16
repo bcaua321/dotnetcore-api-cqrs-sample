@@ -18,7 +18,9 @@ Após o clone do repositório, podemos ir no diretório [/src](https://github.co
 
 
 ```bash
-$ docker compose up 
+$ cd src
+$ docker compose build
+$ docker compose up
 ```
 
 ### 🔭 Sobre o projeto
