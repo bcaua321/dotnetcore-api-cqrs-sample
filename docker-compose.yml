@@ -1,0 +1,26 @@
+version: '3.4'
+
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:latest
+    container_name: user-mssql
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: 123@net#api@23$
+    ports:
+      - "1433:1433"
+
+  api:
+    container_name: api-cqrs
+    restart: always
+    image: cqrsapi
+    build:
+      context: .
+      dockerfile: ApiCQRS.Api/Dockerfile
+    depends_on:
+      - mssql
+    ports:
+      - "5000:80"
+      - "5443:443"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker

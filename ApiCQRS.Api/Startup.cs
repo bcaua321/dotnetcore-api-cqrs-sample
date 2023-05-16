@@ -4,6 +4,8 @@ using ApiCQRS.Api;
 using ApiCQRS.Api.IoC;
 using ApiCQRS.Core.UserContext;
 using ApiCQRS.Infrastructure.Data.Repositories;
+using ApiCQRS.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Commerce.Api
 {
@@ -41,10 +43,17 @@ namespace Commerce.Api
                 app.UseSwaggerUI();
             }
 
+            if (env.EnvironmentName == "Docker")
+            {
+                using (var serviceScope = app.Services.CreateScope())
+                {
+                    var context = serviceScope.ServiceProvider.GetRequiredService<DataContext>();
+                    context.Database.Migrate();
+                }
+            }
+
             app.UseHttpsRedirection();
-
             app.UseAuthorization();
-
             app.MapControllers();
         }
     }
