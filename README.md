@@ -33,6 +33,6 @@ A organização geral foi feita através da divisão em subprojetos:
     <li><strong>ApiCQRS.Application</strong>: Definição de Commands e Queries.</li>
 </ul>
 
-#### 🚩 Oberservação 
+#### 🚩 Observação 
 <p>Tive alguns desafios na hora de realizar a Injenção de Dependência para o <a src="https://github.com/jbogard/MediatR">MediatR 12.0.1</a> no .NET 7.0, no entando consegui resolver referenciando o 
   Assembly de forma "manual", como pode ser visto em ConfigureServices no arquivo <a href="https://github.com/bcaua321/dotnetcore-api-cqrs-sample/blob/main/src/ApiCQRS.Api/Startup.cs">Startup</a>.</p>
