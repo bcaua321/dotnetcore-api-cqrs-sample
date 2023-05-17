@@ -14,8 +14,7 @@
 
 ### 🧐 Como Usar
 
-Após o clone do repositório, podemos ir no diretório [/src](https://github.com/bcaua321/dotnetcore-api-cqrs-sample/tree/main/src) e rodar o seguinte comando:
-
+Após o clone do repositório, podemos rodar os seguintes comandos:
 
 ```bash
 $ cd src
