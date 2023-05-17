@@ -6,6 +6,7 @@ namespace ApiCQRS.Api.HttpResult.Abstraction
 {
     public interface IChainResult
     {
+        // Execute according with the HttpResultEnum value
         IActionResult Execute(ResponseResult response);
     }
 }

@@ -27,7 +27,7 @@ namespace ApiCQRS.Application.Queries.UserQueries
             }
             catch 
             {
-                response = new ResponseResult(HttpResultEnum.InternalServerError, $"Error With Server");
+                response = new ResponseResult(HttpResultEnum.InternalServerError, $"Internal Server Error");
                 return response;
             }
 

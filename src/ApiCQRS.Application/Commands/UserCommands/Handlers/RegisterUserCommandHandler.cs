@@ -34,11 +34,11 @@ namespace ApiCQRS.Application.Commands.UserCommands.Handlers
             {
                 var result = await _userWriteOnlyRepository.Add(user);
                 await _mediator.Publish(new RegisterUserNotification { Id = user.Id, Name = user.Name, LastName = user.LastName, Email = user.Email, IsEfetivado = true });
-                return new ResponseResult(HttpResultEnum.Ok, "Sucesso ao criar user");
+                return new ResponseResult(HttpResultEnum.Ok, new { Message = "Sucess in create user." });
             } catch(Exception ex) {
                 await _mediator.Publish(new RegisterUserNotification { Id = user.Id, Name = user.Name, LastName = user.LastName, Email = user.Email, IsEfetivado = false });
                 await _mediator.Publish(new ErrorNotification { Exception = ex.Message, StackTrace = ex.StackTrace });
-                return new ResponseResult(HttpResultEnum.InternalServerError, "Falhar ao criar user");;
+                return new ResponseResult(HttpResultEnum.InternalServerError,new { Message = "Internal error." });
             }
         }
     }
