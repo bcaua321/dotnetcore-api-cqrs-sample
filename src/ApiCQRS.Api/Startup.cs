@@ -1,11 +1,10 @@
 using System.Reflection;
-using Microsoft.Extensions.DependencyInjection;
-using ApiCQRS.Api;
 using ApiCQRS.Api.IoC;
 using ApiCQRS.Core.UserContext;
 using ApiCQRS.Infrastructure.Data.Repositories;
 using ApiCQRS.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 namespace Commerce.Api
 {
@@ -28,7 +27,13 @@ namespace Commerce.Api
             services.AddDbContextServices(Configuration);
             services.AddControllers();
             services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(options => {
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "CQRS API"
+                });
+            });
             services.AddScoped<IUserReadOnlyRepository, UserRepository>();
             services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
             services.AddMediatR(m => m.RegisterServicesFromAssembly(applicationAssembly));
@@ -40,7 +45,11 @@ namespace Commerce.Api
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
-                app.UseSwaggerUI();
+                app.UseSwaggerUI(options =>
+                {
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+                    options.RoutePrefix = string.Empty;
+                });
             }
 
             if (env.EnvironmentName == "Docker")
