@@ -28,10 +28,11 @@ A organização geral foi feita através da divisão em subprojetos:
 
 <ul>
     <li><strong>ApiCQRS.Core</strong>: Onde é definido o contexto de usuário, através da definição de entidades e a abstração de acesso a dados.</li>
-    <li><strong>ApiCQRS.Infrastructure</strong>: Onde é realizado a implementação da definição feita em ApiCQRS.Core, através da criação e definição de acesso aos dados.</li>
+    <li><strong>ApiCQRS.Infrastructure</strong>: Implementação da definição feita em ApiCQRS.Core, através da criação e definição de acesso aos dados.</li>
     <li><strong>ApiCQRS.Application</strong>: Definição de Commands e Queries.</li>
 </ul>
 
 #### 🚩 Observação 
 <p>Tive alguns desafios na hora de realizar a Injenção de Dependência para o <a src="https://github.com/jbogard/MediatR">MediatR 12.0.1</a> no .NET 7.0, no entando consegui resolver referenciando o 
   Assembly de forma "manual", como pode ser visto em ConfigureServices no arquivo <a href="https://github.com/bcaua321/dotnetcore-api-cqrs-sample/blob/main/src/ApiCQRS.Api/Startup.cs">Startup</a>.</p>
+<p>Ademais, foquei mais na implementação do CQRS ao invés de focar na regra de negócios, etc...</p>

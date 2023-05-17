@@ -1,8 +1,9 @@
+using ApiCQRS.Application.Shared;
 using MediatR;
 
 namespace ApiCQRS.Application.Commands.UserCommands.DTOs
 {
-    public class UpdateUserCommand : IRequest<ResponseCommand>
+    public class UpdateUserCommand : IRequest<ResponseResult>
     {
         public Guid Id { get; set; }
         public string Email { get; set; }

@@ -1,12 +1,14 @@
 using ApiCQRS.Application;
 using ApiCQRS.Application.Commands.Notifications;
 using ApiCQRS.Application.Commands.UserCommands.DTOs;
+using ApiCQRS.Application.Enums;
+using ApiCQRS.Application.Shared;
 using ApiCQRS.Core.UserContext;
 using MediatR;
 
 namespace ApiCQRS.Application.Commands.UserCommands.Handlers
 {
-    public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand, ResponseCommand>
+    public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand, ResponseResult>
     {
         private readonly IMediator _mediator;
         private readonly IUserWriteOnlyRepository _userWriteOnlyRepository;
@@ -19,14 +21,14 @@ namespace ApiCQRS.Application.Commands.UserCommands.Handlers
             _userReadOnlyRepository = userReadOnlyRepository;
         }
         
-        public async Task<ResponseCommand> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
+        public async Task<ResponseResult> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
         {
             var user = await _userReadOnlyRepository.FindById(request.Id);
 
             if(user is null)
             {
                 await _mediator.Publish(new DeleteUserNotification { Id = user.Id, Name = user.Name, Email = user.Email, IsEfetivado = false });
-                return new ResponseCommand($"Erro ao atualizar user de ID: {request.Id}, user não existe", false);
+                return new ResponseResult(HttpResultEnum.NotFound, new { Message = $"{request.Id} user do not exists" });
             }
 
             bool result = true; 
@@ -42,10 +44,10 @@ namespace ApiCQRS.Application.Commands.UserCommands.Handlers
             if(!result) 
             {
                 await _mediator.Publish(new DeleteUserNotification { Id = user.Id, Name = user.Name, Email = user.Email, IsEfetivado = false });
-                return new ResponseCommand($"Erro ao atualizar user de ID: {request.Id}, falha interna", false);
+                return new ResponseResult(HttpResultEnum.InternalServerError, new { Message = $"Internal error" });
             }
 
-            return new ResponseCommand("Sucesso ao excluir", true);
+            return new ResponseResult(HttpResultEnum.Ok, new { Message = "Success in exclude" });
         }
     }
 }
