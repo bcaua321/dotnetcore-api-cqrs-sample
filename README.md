@@ -1,6 +1,6 @@
 <h1 align="center">CQRS no .NET 7.0</h1>
 
-<p align="center">Uma exemplo de API REST que implementa o padrão CQRS e os princípios SOLID através de um CRUD de usuários.</p>
+<p align="center">Um exemplo de API REST que implementa o padrão CQRS e os princípios SOLID através de um CRUD de usuários.</p>
 
 ### 🛠 Tecnologias
 
